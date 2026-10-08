@@ -13,6 +13,7 @@ WEBSITE_TITLE = "For my beloved mentor 🤍"
 LANDING_HEADER = ":3"
 SUB_HEADER = "Goodmorning Mentor!! Didcha sleep well?"
 ENTER_BUTTON_TEXT = "Click here to see my appreciation for you, mentor!!! (,,> ᴗ <,,)"
+
 # --- 2. Option 1: The Timeline Section ---
 SLIDER_TITLE = "My opinion about us"
 
@@ -137,14 +138,13 @@ st.markdown("""
     .bottom-layer { bottom: 8%; }
 
     .big-cloud {
-        font-size: 65px; /* Significantly bigger sizing */
+        font-size: 65px;
         color: rgba(255, 255, 255, 0.9);
         white-space: nowrap;
         position: absolute;
         filter: drop-shadow(0px 4px 8px rgba(255,255,255,0.4));
     }
     
-    /* Distanced timing cycles to separate clouds visually */
     .float-fast { animation: moveRight 35s linear infinite; }
     .float-mid { animation: moveLeft 45s linear infinite; }
     .float-slow { animation: moveRight 55s linear infinite; }
@@ -179,7 +179,7 @@ if not st.session_state.page_entered:
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-# --- MAIN INTERACTIVE WEB CONTENT (Reveals smoothly when button is triggered) ---
+# --- MAIN INTERACTIVE WEB CONTENT ---
 else:
     st.markdown(f"<p style='font-size: 1.25em; font-style: italic; font-weight: bold; margin-top: 15px; color: #1a3a5f;'>{SUB_HEADER}</p>", unsafe_allow_html=True)
 
@@ -239,3 +239,12 @@ else:
         st.markdown(f"""
             <div style='background-color: #e6f2ff; padding: 15px; border-radius: 10px; border: 2px dashed #4a90e2; margin-top: 15px;'>
                 <h3 style='color: #4a90e2 !important;'>{HAPPY_FINAL_HEADER}</h3>
+                <p style='font-weight: bold;'>{HAPPY_FINAL_BODY}</p>
+            </div>
+        """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# --- QR CODE GENERATOR ---
+def generate_love_qr(url_path):
+    qr = qrcode.QRCode(version=1, box_size=10, border=4)
+
