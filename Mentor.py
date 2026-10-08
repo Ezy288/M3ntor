@@ -3,16 +3,9 @@ import qrcode
 from PIL import Image
 import os
 
-# =========================================================================
-# ✨ ✍️ EDIT YOUR TEXT DIALOGUES HERE! ✍️ ✨
-# All your custom phrases, kaomojis, and updates are locked in below.
-# =========================================================================
-
-# --- 1. Top Headers & Titles ---
 WEBSITE_TITLE = "For my beloved mentor 🤍"
 SUB_HEADER = "Scroll down to see my appreciation for you, mentor!!! (,,> ᴗ <,,)"
 
-# --- 2. Option 1: The Timeline Section ---
 SLIDER_TITLE = "My opinion about us"
 
 TIMELINE_1_TITLE = "˙𐃷˙"
@@ -24,7 +17,6 @@ TIMELINE_2_BODY = "*When we talked about our very own lives, I realized we have 
 TIMELINE_3_TITLE = "My Promise to You"
 TIMELINE_3_BODY = "*I promise to share the emotional burden of weight in ur life so you'll never have to carry it all by yourself <3 I will choose you everyday, over and over again.*"
 
-# --- 3. Option 2: The Random Cute Notes Section ---
 CARD_2_HEADER = "My appreciation for you ♡"
 CARD_2_SUBTEXT = "Click below to reveal something very very interesting!"
 BUTTON_REVEAL_TEXT = "Open it~ It's my admiration towards you mentor!"
@@ -35,23 +27,20 @@ CUTE_NOTES = [
     "👉 You're like super duper cool! I love you, Mentor. Let's stay together forever, I'm loyal to only you :("
 ]
 
-# --- 4. Option 3: The Big Question Section ---
 CARD_3_HEADER = "One Last Thing..."
 LOVE_DECLARATION = "I love you so much Arif, even these small words wouldn't be able to describe how much love I hold for u in my heart. Goodmorning though, I hope you enjoyed what i made specially for you •ᴗ•"
 YES_BUTTON_TEXT = "I love you too. (That'll mean you wanna marry me 👀)"
 NO_BUTTON_TEXT = "I don't"
 
-# --- 5. The Tricked "No" Button Errors ---
 ANGRY_DENIED_TEXT = "Ur not serious right.. mentor? :‹"
 ANGRY_SUB_TEXT = "Let's stay together.. FOREVER mentor <3 You're stuck w me :3"
 
-# --- 6. The Happy Success Screen ---
 HAPPY_FINAL_HEADER = "Hehe, I knew it!"
 HAPPY_FINAL_BODY = "Let's stay together forever, my favorite teammate! You're stuck with me!"
 
 
 # =========================================================================
-# ⚙️ CODE ENGINE & FLOATING CLOUD LAYER (No need to touch anything below!)
+
 # =========================================================================
 st.set_page_config(page_title=WEBSITE_TITLE, page_icon="☁️", layout="centered")
 
