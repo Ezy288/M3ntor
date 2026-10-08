@@ -12,7 +12,7 @@ import os
 WEBSITE_TITLE = "For my beloved mentor 🤍"
 LANDING_HEADER = ":3"
 SUB_HEADER = "Goodmorning Mentor!! Didcha sleep well?"
-ENTER_BUTTON_TEXT = "Click here to see my appreciation for you, mentor!!! (,,> ᴗ <,,)
+ENTER_BUTTON_TEXT = "Click here to see my appreciation for you, mentor!!! (,,> ᴗ <,,)"
 # --- 2. Option 1: The Timeline Section ---
 SLIDER_TITLE = "My opinion about us"
 
