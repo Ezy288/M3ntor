@@ -7,7 +7,7 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# 2. Modern Layout Injectors (Ensures no blank spacing or clipping)
+# 2. Layout Overrides (Keeps Streamlit components from clipping your site)
 st.markdown("""
     <style>
     #MainMenu, footer, header {visibility: hidden;}
@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Complete Mobile Site Source Code
+# 3. Securely Wrapped Interactive Application Data
 HTML_CONTENT = """
 <!DOCTYPE html>
 <html lang="en">
@@ -40,11 +40,11 @@ HTML_CONTENT = """
             background-color: #0b132b;
         }
 
-        /* Mobile Simulation Container - Fixed 700px height to prevent Streamlit layout collapse */
+        /* Mobile Simulation Container - Fixed 730px height to stay stable within Streamlit frames */
         .phone-container {
             position: relative;
             width: 100%;
-            height: 720px;
+            height: 730px;
             max-width: 430px;
             margin: 0 auto;
             overflow: hidden;
@@ -348,7 +348,7 @@ HTML_CONTENT = """
         }
 
         .final-success-box {
-            background: #1f2937;
+background: #1f2937;
 border: 2px solid #10b981;
 border-radius: 20px;
 padding: 20px;
@@ -476,7 +476,6 @@ promiseBtn.addEventListener('click', () => {
 victoryBox.classList.add('show'); cantBtn.style.display = "none"; promiseBtn.style.display = "none";
 initiateHighDensityConfetti();
 });
-// Direct event hookups
 submitBtn.addEventListener('click', (e) => { e.preventDefault(); verifyGatewayPassword(); });
 pwdField.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyGatewayPassword(); });
 const canvas = document.getElementById("confettiCanvas"); const ctx = canvas.getContext("2d");
