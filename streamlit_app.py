@@ -1,25 +1,22 @@
 import streamlit as st
 
-# Configure the Streamlit page layout to fit mobile view screens nicely
+# 1. Page Configuration
 st.set_page_config(
     page_title="Special Surprise", 
     layout="centered", 
     initial_sidebar_state="collapsed"
 )
 
-# Hide Streamlit's default headers and footers to keep the romantic theme clean
-hide_style = """
+# 2. Modern Layout Injectors (Ensures no blank spacing or clipping)
+st.markdown("""
     <style>
-    #MainMenu {visibility: hidden;}
-    footer {visibility: hidden;}
-    header {visibility: hidden;}
-    .block-container {padding: 0px;}
-    iframe {width: 100%; height: 100vh; border: none;}
+    #MainMenu, footer, header {visibility: hidden;}
+    .block-container {padding: 0px !important; max-width: 100% !important;}
+    iframe {border: none; width: 100% !important;}
     </style>
-"""
-st.markdown(hide_style, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# Paste your complete single-file interactive code inside this string variable
+# 3. Complete Mobile Site Source Code
 HTML_CONTENT = """
 <!DOCTYPE html>
 <html lang="en">
@@ -35,16 +32,19 @@ HTML_CONTENT = """
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
+
         body, html {
             width: 100%;
             height: 100%;
             overflow: hidden;
             background-color: #0b132b;
         }
+
+        /* Mobile Simulation Container - Fixed 700px height to prevent Streamlit layout collapse */
         .phone-container {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 720px;
             max-width: 430px;
             margin: 0 auto;
             overflow: hidden;
@@ -54,8 +54,11 @@ HTML_CONTENT = """
             align-items: center;
             padding: 40px 24px;
             background: #0b132b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* --- SCENE 1 STYLES: ENDLESS HEART TUNNEL --- */
         .tunnel-container {
             position: absolute;
             top: 0;
@@ -66,6 +69,7 @@ HTML_CONTENT = """
             z-index: 1;
             pointer-events: none;
         }
+
         .tunnel-heart {
             position: absolute;
             top: 50%;
@@ -77,17 +81,21 @@ HTML_CONTENT = """
             opacity: 0;
             animation: tunnelMove 7s linear infinite;
         }
+
         .tunnel-heart:nth-child(1) { fill: #ffffff; animation-delay: 0s; }
         .tunnel-heart:nth-child(2) { fill: #f0f4f8; animation-delay: 1.4s; }
         .tunnel-heart:nth-child(3) { fill: #d9e2ec; animation-delay: 2.8s; }
         .tunnel-heart:nth-child(4) { fill: #bcccdc; animation-delay: 4.2s; }
         .tunnel-heart:nth-child(5) { fill: #9fb3c8; animation-delay: 5.6s; }
+
         @keyframes tunnelMove {
             0% { transform: scale(0.01) rotate(0deg); opacity: 0; }
             5% { opacity: 0.8; }
             90% { opacity: 0.8; }
             100% { transform: scale(1.4) rotate(20deg); opacity: 0; }
         }
+
+        /* Floating Welcome Header */
         .welcome-header {
             font-size: 24px;
             font-weight: 800;
@@ -98,6 +106,7 @@ HTML_CONTENT = """
             margin-top: 10px;
             animation: textFloat 3.5s ease-in-out infinite;
         }
+
         .welcome-underline {
             width: 70px;
             height: 4px;
@@ -105,10 +114,13 @@ HTML_CONTENT = """
             margin: 8px auto 0 auto;
             border-radius: 2px;
         }
+
         @keyframes textFloat {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
+
+        /* Central Gateway White Heart Structure */
         .heart-wrapper {
             position: relative;
             width: 290px;
@@ -120,6 +132,7 @@ HTML_CONTENT = """
             margin: auto 0;
             transition: transform 0.6s cubic-bezier(0.6, -0.28, 0.735, 0.045), opacity 0.5s;
         }
+
         .heart-svg {
             position: absolute;
             top: 0;
@@ -129,9 +142,10 @@ HTML_CONTENT = """
             fill: #ffffff;
             filter: drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.2));
         }
+
         .heart-content {
             position: relative;
-            z-index: 30;
+            z-index: 35;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -141,6 +155,7 @@ HTML_CONTENT = """
             padding-top: 5px; 
             padding-bottom: 25px; 
         }
+
         .answer-input {
             width: 160px;
             padding: 10px 14px;
@@ -154,6 +169,7 @@ HTML_CONTENT = """
             margin-bottom: 10px;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
+
         .enter-btn {
             background: linear-gradient(135deg, #627d98, #486581);
             color: white;
@@ -164,8 +180,9 @@ HTML_CONTENT = """
             border-radius: 18px;
             cursor: pointer;
             box-shadow: 0 4px 12px rgba(72, 101, 129, 0.4);
-            transition: transform 0.1s ease;
         }
+
+        /* Light Blue Styled Clue Container */
         .instructions-text {
             font-size: 14px;
             color: #102a43;
@@ -180,6 +197,7 @@ HTML_CONTENT = """
             max-width: 95%;
             box-shadow: 0 8px 16px rgba(0,0,0,0.15);
         }
+
         .blackout-mask {
             position: absolute;
             top: 0;
@@ -192,6 +210,8 @@ HTML_CONTENT = """
             pointer-events: none;
             transition: opacity 0.4s ease;
         }
+
+        /* --- SCENE 2 STYLES: DARK MODE TYPING LETTER --- */
         .scene-stage {
             position: absolute;
             top: 0;
@@ -208,7 +228,12 @@ HTML_CONTENT = """
             transition: opacity 0.6s ease, transform 0.4s ease;
             z-index: 40;
         }
-        .active-stage { opacity: 1; pointer-events: auto; }
+
+        .active-stage {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
         .dark-letter-card {
             width: 100%;
             max-height: 70vh;
@@ -222,6 +247,7 @@ HTML_CONTENT = """
             color: #f3f4f6;
             overflow-y: auto;
         }
+
         .letter-title {
             font-size: 22px;
             color: #60a5fa;
@@ -230,7 +256,14 @@ HTML_CONTENT = """
             border-bottom: 1px dashed #4b5563;
             padding-bottom: 8px;
         }
-        .typing-content { font-size: 15px; line-height: 1.6; color: #e5e7eb; white-space: pre-wrap; }
+
+        .typing-content {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #e5e7eb;
+            white-space: pre-wrap;
+        }
+
         .slide-next-btn {
             margin-top: 20px;
             background: #374151;
@@ -242,57 +275,137 @@ HTML_CONTENT = """
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
-        .proposal-card { text-align: center; z-index: 50; width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .jumping-heart-box { animation: heartJump 1.8s cubic-bezier(0.25, 1, 0.5, 1) infinite; margin-bottom: 20px; }
+
+        /* --- SCENE 3 STYLES: THE JUMPING PROPOSAL SCREEN --- */
+        .proposal-card {
+            text-align: center;
+            z-index: 50;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .jumping-heart-box {
+            animation: heartJump 1.8s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+            margin-bottom: 20px;
+        }
+
         @keyframes heartJump {
             0%, 100% { transform: translateY(0) scale(1); }
             40% { transform: translateY(-30px) scale(1.05); }
             70% { transform: translateY(0) scale(0.95); }
         }
-        .proposal-question { font-size: 22px; font-weight: bold; color: #ffffff; margin-bottom: 30px; }
-        .choice-btn-stack { display: flex; flex-direction: column; gap: 14px; width: 80%; }
-        .choice-btn { padding: 14px; font-size: 16px; font-weight: bold; border-radius: 25px; border: none; cursor: pointer; }
-        .btn-promise { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
-        .btn-cant { background: #374151; color: #9ca3af; border: 1px solid #4b5563; position: relative; }
-        .btn-cant.crossed-out { text-decoration: line-through; color: #ef4444 !important; border-color: #ef4444 !important; opacity: 0.6; }
-        .btn-cant.crossed-out::after { content: '❌'; position: absolute; right: 15px; top: 50%; transform: translateY(-50%); }
-        .final-success-box { background: #1f2937; border: 2px solid #10b981; border-radius: 20px; padding: 20px; color: #10b981; font-size: 18px; font-weight: bold; text-align: center; margin-top: 25px; display: none; }
-        .final-success-box.show { display: block; }
-        .feedback-toast { position: absolute; top: 30px; background-color: #ef4444; color: white; padding: 12px 24px; border-radius: 25px; font-weight: bold; font-size: 14px; opacity: 0; transform: translateY(-30px); transition: all 0.3s ease; z-index: 100; pointer-events: none; }
-        .feedback-toast.show { opacity: 1; transform: translateY(0); }
-        #confettiCanvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 80; }
-    </style>
-</head>
-<body>
-    <div class="phone-container" id="appFrame">
-        <div class="feedback-toast" id="toastMessage">Incorrect and access denied</div>
-        <canvas id="confettiCanvas"></canvas>
-        Welcome again mentor!
+
+        .proposal-question {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .choice-btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 80%;
+        }
+
+        .choice-btn {
+            padding: 14px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-promise {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .btn-cant {
+            background: #374151;
+            color: #9ca3af;
+            border: 1px solid #4b5563;
+            position: relative;
+        }
+
+        .btn-cant.crossed-out {
+            text-decoration: line-through;
+            color: #ef4444 !important;
+            border-color: #ef4444 !important;
+            opacity: 0.6;
+        }
+
+        .btn-cant.crossed-out::after {
+            content: '❌';
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .final-success-box {
+            background: #1f2937;
+border: 2px solid #10b981;
+border-radius: 20px;
+padding: 20px;
+color: #10b981;
+font-size: 18px;
+font-weight: bold;
+text-align: center;
+margin-top: 25px;
+display: none;
+}
+.final-success-box.show {
+display: block;
+}
+.feedback-toast {
+position: absolute;
+top: 30px;
+background-color: #ef4444;
+color: white;
+padding: 12px 24px;
+border-radius: 25px;
+font-weight: bold;
+font-size: 14px;
+opacity: 0;
+transform: translateY(-30px);
+transition: all 0.3s ease;
+z-index: 100;
+pointer-events: none;
+}
+.feedback-toast.show {
+opacity: 1;
+transform: translateY(0);
+}
+#confettiCanvas {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+pointer-events: none;
+z-index: 80;
+}
+
+
+
+
+Incorrect and access denied
+
+Welcome again mentor!
 I have made another surprise for you~
-
-
-
-
-
 
 Enter
 
-
-
 To continue, you must figure out what our fav colors will equal to if combined then input ur answer in the heart!~ (˶ᴖ ᴗ ᴖ˶)
-
-
-
 For you <3
 
 
 ⮞⮞⮞
-
-
-
-
-
-
 Promise to be my life-time partner?
 
 Promise
@@ -300,8 +413,6 @@ I can't..
 
 
 Hehe! I knew you wouldn't let me down
-
-
 
 const submitBtn = document.getElementById('submitBtn');
 const pwdField = document.getElementById('pwdField');
@@ -365,6 +476,7 @@ promiseBtn.addEventListener('click', () => {
 victoryBox.classList.add('show'); cantBtn.style.display = "none"; promiseBtn.style.display = "none";
 initiateHighDensityConfetti();
 });
+// Direct event hookups
 submitBtn.addEventListener('click', (e) => { e.preventDefault(); verifyGatewayPassword(); });
 pwdField.addEventListener('keypress', (e) => { if (e.key === 'Enter') verifyGatewayPassword(); });
 const canvas = document.getElementById("confettiCanvas"); const ctx = canvas.getContext("2d");
