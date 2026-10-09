@@ -1,4 +1,4 @@
-import streamlit as st
+mport streamlit as st
 
 # 1. Page Configuration
 st.set_page_config(
@@ -16,7 +16,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# 3. Complete Mobile Site Source Code
+# 3. Securely Wrapped Interactive Application Data
 HTML_CONTENT = """
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +40,7 @@ HTML_CONTENT = """
             background-color: #0b132b;
         }
 
-        /* Mobile Simulation Container - Fixed 730px height to stay stable within Streamlit frames */
+        /* Mobile Simulation Container - Fixed 730px height */
         .phone-container {
             position: relative;
             width: 100%;
@@ -211,7 +211,7 @@ HTML_CONTENT = """
             transition: opacity 0.4s ease;
         }
 
-        /* --- SCENE 2 STYLES: DARK MODE TYPING LETTER --- */
+        /* --- SCENE 2 STYLES: DARK CITY SKYLINE WITH TOWERS --- */
         .scene-stage {
             position: absolute;
             top: 0;
@@ -234,10 +234,28 @@ HTML_CONTENT = """
             pointer-events: auto;
         }
 
+        /* Background 2: Deep Dark Horizon City Skyline with Silhouette Tall Towers */
+        .bg-towers {
+            background: linear-gradient(to bottom, #070b19 0%, #111827 70%, #1f2937 100%);
+        }
+
+        .towers-silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            pointer-events: none;
+            opacity: 0.15;
+            z-index: 2;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" preserveAspectRatio="none"><path fill="%23000000" d="M0,30 V15 H4 V30 H8 V8 H13 V30 H16 V20 H20 V30 H24 V5 H28 V30 H32 V12 H37 V30 H41 V18 H46 V30 H50 V3 H55 V30 H60 V14 H64 V30 H68 V9 H73 V30 H77 V22 H82 V30 H86 V7 H91 V30 H95 V16 H100 V30 Z"/></svg>');
+            background-size: 100% 100%;
+        }
+
         .dark-letter-card {
             width: 100%;
             max-height: 70vh;
-            background: #1f2937;
+            background: rgba(31, 41, 55, 0.85);
             border: 1px solid #374151;
             border-radius: 20px;
             padding: 24px;
@@ -246,6 +264,8 @@ HTML_CONTENT = """
             flex-direction: column;
             color: #f3f4f6;
             overflow-y: auto;
+            z-index: 5;
+            backdrop-filter: blur(8px);
         }
 
         .letter-title {
@@ -267,16 +287,29 @@ HTML_CONTENT = """
         .slide-next-btn {
             margin-top: 20px;
             background: #374151;
-            color: #9ca3af;
-            font-size: 20px;
+            color: #60a5fa;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 2px;
             padding: 10px 40px;
             border-radius: 30px;
             border: 2px solid #4b5563;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            z-index: 5;
+            transition: all 0.2s ease;
+        }
+        
+        .slide-next-btn:active {
+            transform: scale(0.95);
         }
 
         /* --- SCENE 3 STYLES: THE JUMPING PROPOSAL SCREEN --- */
+        /* Background 3: Clean Modern Dark Blue Black Gradient Color Scheme */
+        .bg-gradient-dark {
+            background: linear-gradient(135deg, #0a1128 0%, #000411 100%) !important;
+        }
+
         .proposal-card {
             text-align: center;
             z-index: 50;
@@ -323,20 +356,22 @@ HTML_CONTENT = """
         .btn-promise {
             background: linear-gradient(135deg, #3b82f6, #1d4ed8);
             color: white;
+            box-shadow: 0 5px 15px rgba(29,78,216,0.3);
         }
 
         .btn-cant {
-            background: #374151;
+            background: #1f2937;
             color: #9ca3af;
-            border: 1px solid #4b5563;
+            border: 1px solid #374151;
             position: relative;
+            transition: all 0.2s ease;
         }
 
         .btn-cant.crossed-out {
             text-decoration: line-through;
             color: #ef4444 !important;
             border-color: #ef4444 !important;
-            opacity: 0.6;
+            opacity: 0.5;
         }
 
         .btn-cant.crossed-out::after {
@@ -358,6 +393,7 @@ HTML_CONTENT = """
             text-align: center;
             margin-top: 25px;
             display: none;
+            box-shadow: 0 5px 15px rgba(16,185,129,0.2);
         }
 
         .final-success-box.show {
@@ -428,11 +464,12 @@ HTML_CONTENT = """
         </div>
 
         <div class="scene-stage" id="stageScene2">
+            <div class="towers-silhouette"></div>
             <div class="dark-letter-card">
                 <div class="letter-title">For you &lt;3</div>
                 <div class="typing-content" id="letterBody"></div>
             </div>
-            <button class="slide-next-btn" id="slideBtn">⮞⮞⮞</button>
+            <button class="slide-next-btn" id="slideBtn">&gt;&gt;&gt;</button>
         </div>
 
         <div class="scene-stage" id="stageScene3">
@@ -487,7 +524,7 @@ HTML_CONTENT = """
             setTimeout(() => { blackout.style.opacity = "1"; }, 250);
             setTimeout(() => {
                 welcBlock.style.display = "none"; gatewayHeart.style.display = "none"; instructBlock.style.display = "none"; tunnelBackground.style.display = "none";
-                appFrame.style.background = "linear-gradient(to bottom, #ffb6c1 0%, #ffffff 50%, #8e8e93 100%)";
+                appFrame.classList.add('bg-towers');
                 blackout.style.opacity = "0";
                 stageScene2.classList.add('active-stage');
                 startSlowerTyping();
@@ -505,7 +542,12 @@ HTML_CONTENT = """
         }
         slideBtn.addEventListener('click', () => {
             stageScene2.style.transform = "translateX(100%)"; stageScene2.style.opacity = "0";
-            setTimeout(() => { stageScene2.classList.remove('active-stage'); stageScene3.classList.add('active-stage'); }, 400);
+            setTimeout(() => { 
+                stageScene2.classList.remove('active-stage'); 
+                appFrame.classList.remove('bg-towers');
+                appFrame.classList.add('bg-gradient-dark');
+                stageScene3.classList.add('active-stage'); 
+            }, 400);
         });
         cantBtn.addEventListener('click', () => {
             if (rejectClickCount === 0) { displayToast("Why not? :‹"); rejectClickCount++; } 
