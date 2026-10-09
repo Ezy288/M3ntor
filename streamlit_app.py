@@ -516,3 +516,5 @@ requestAnimationFrame(animateConfettiLoop);
 
 
 """
+
+st.components.v1.html(HTML_CONTENT, height=740, scrolling=False)
